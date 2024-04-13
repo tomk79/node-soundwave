@@ -1,3 +1,5 @@
 {
-    "/dist/soundwave.js": "/dist/soundwave.js"
+    "/dist/soundwave.js": "/dist/soundwave.js",
+    "/tests/app/client/index_files/contents.js": "/tests/app/client/index_files/contents.js",
+    "/tests/app/client/index_files/contents.css": "/tests/app/client/index_files/contents.css"
 }

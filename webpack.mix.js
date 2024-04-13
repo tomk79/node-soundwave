@@ -33,6 +33,11 @@ mix
 
 
 	// --------------------------------------
-	// gitui79
+	// soundwave.js
 	.js('src/soundwave.mjs', 'dist/soundwave.js')
+
+	// --------------------------------------
+	// test
+	.js('tests/app/src/contents.js', 'tests/app/client/index_files/contents.js')
+	.sass('tests/app/src/contents.scss', 'tests/app/client/index_files/contents.css')
 ;

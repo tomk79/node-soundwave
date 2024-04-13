@@ -9,8 +9,8 @@ $ npm install --save @tomk79/soundwave
 ## Usage
 
 ```js
-const SoundWave = require('@tomk79/soundwave'),
-      soundWave = new SoundWave();
+import SoundWave from '@tomk79/soundwave';
+const soundWave = new SoundWave();
 ```
 
 
