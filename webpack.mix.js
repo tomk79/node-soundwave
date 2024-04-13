@@ -41,4 +41,5 @@ mix
 	.js('tests/app/src/contents.js', 'docs/demo/index_files/contents.js')
 	.sass('tests/app/src/contents.scss', 'docs/demo/index_files/contents.css')
 	.copy('dist/soundwave.js', 'docs/demo/index_files/')
+	.copy('node_modules/px2style/dist/', 'docs/demo/libs/px2style/')
 ;

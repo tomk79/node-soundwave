@@ -1,5 +1,9 @@
 # @tomk79/soundwave
 
+## Demo
+
+https://tomk79.github.io/node-soundwave/demo/
+
 ## Install
 
 ```bash

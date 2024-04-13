@@ -2,5 +2,14 @@
     "/dist/soundwave.js": "/dist/soundwave.js",
     "/docs/demo/index_files/contents.js": "/docs/demo/index_files/contents.js",
     "/docs/demo/index_files/contents.css": "/docs/demo/index_files/contents.css",
-    "/docs/demo/index_files/soundwave.js": "/docs/demo/index_files/soundwave.js"
+    "/docs/demo/index_files/soundwave.js": "/docs/demo/index_files/soundwave.js",
+    "/docs/demo/libs/px2style/px2style.css": "/docs/demo/libs/px2style/px2style.css",
+    "/docs/demo/libs/px2style/px2style.css.map": "/docs/demo/libs/px2style/px2style.css.map",
+    "/docs/demo/libs/px2style/px2style.js": "/docs/demo/libs/px2style/px2style.js",
+    "/docs/demo/libs/px2style/px2style.js.LICENSE.txt": "/docs/demo/libs/px2style/px2style.js.LICENSE.txt",
+    "/docs/demo/libs/px2style/px2style.js.map": "/docs/demo/libs/px2style/px2style.js.map",
+    "/docs/demo/libs/px2style/themes/darkmode.css": "/docs/demo/libs/px2style/themes/darkmode.css",
+    "/docs/demo/libs/px2style/themes/darkmode.css.map": "/docs/demo/libs/px2style/themes/darkmode.css.map",
+    "/docs/demo/libs/px2style/themes/default.css": "/docs/demo/libs/px2style/themes/default.css",
+    "/docs/demo/libs/px2style/themes/default.css.map": "/docs/demo/libs/px2style/themes/default.css.map"
 }

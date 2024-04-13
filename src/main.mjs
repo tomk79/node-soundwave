@@ -38,22 +38,23 @@ export default class Soundwave {
 		})();
 
 	    const splitter = this.#audioContext.createChannelSplitter(this.#options.channels);
-
+	    const merger = this.#audioContext.createChannelMerger(this.#options.channels);
 		const analyserNodes = [];
-		for(let i = 0; i < this.#options.channels; i ++){
-			analyserNodes[i] = this.#audioContext.createAnalyser();
-		}
+		const pannerNodes = [];
 
 		sourceNode.connect(splitter);
+
 		for(let i = 0; i < this.#options.channels; i ++){
-			splitter.connect(analyserNodes[i], i, 0);
+			analyserNodes[i] = this.#audioContext.createAnalyser();
 			analyserNodes[i].fftSize = 256;
+			pannerNodes[i] = new StereoPannerNode(this.#audioContext, {pan: 1,});
+			pannerNodes[i].connect(analyserNodes[i]);
+			splitter.connect(pannerNodes[i], i);
+			pannerNodes[i].connect(merger, 0, i);
 		}
 
 		if(this.#options.destination){		
-			for(let i = 0; i < this.#options.channels; i ++){
-				analyserNodes[0].connect(this.#audioContext.destination);
-			}
+			merger.connect(this.#audioContext.destination);
 		}
 
 		const dataArrays = [];
@@ -67,6 +68,7 @@ export default class Soundwave {
 			let sum = dataArray.reduce((a, b) => a + b, 0);
 			let average = sum / dataArray.length;
 			let per = Number(average/255) * 2;
+			if(per > 100){ per = 100; }
 
 			return per;
 		};

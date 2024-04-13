@@ -40,6 +40,7 @@
     "fs-extra": "^7.0.1",
     "laravel-mix": "^6.0.6",
     "mocha": "^10.4.0",
+    "px2style": "^3.2.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "resolve-url-loader": "^5.0.0",
