@@ -1,0 +1,22 @@
+{
+  "name": "@tomk79/soundwave",
+  "version": "0.1.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "mocha --ui bdd ./tests/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomk79/node-soundwave.git"
+  },
+  "author": "Tomoya Koyanagi <tomk79@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tomk79/node-soundwave/issues"
+  },
+  "homepage": "https://github.com/tomk79/node-soundwave#readme",
+  "devDependencies": {
+    "mocha": "^10.4.0"
+  }
+}
