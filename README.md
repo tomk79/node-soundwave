@@ -8,8 +8,6 @@ $ npm install --save @tomk79/soundwave
 
 ## Usage
 
-### 配列を直列処理する
-
 ```js
 const SoundWave = require('@tomk79/soundwave'),
       soundWave = new SoundWave();
