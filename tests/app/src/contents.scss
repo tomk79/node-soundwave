@@ -1,0 +1,23 @@
+/**
+ * テスト出力: 音声のボリュームを表示する
+ */
+.volume-indicator {
+	width: 200px;
+	background-color: #ddd8;
+	&__value {
+		width: 0%;
+		height: 30px;
+		background-color: #44d;
+		color: #fff;
+		text-align: left;
+		overflow: visible;
+		white-space: nowrap;
+	}
+}
+
+
+#meter {
+  width: 100%;
+  height: 20px;
+  background-color: #eee;
+}

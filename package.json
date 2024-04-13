@@ -13,7 +13,7 @@
     "production": "mix --production",
     "start": "node ./tests/app/server/server.mjs;",
     "up": "node ./tests/app/server/server.mjs;",
-    "preview": "open http://127.0.0.1:3000/;",
+    "preview": "open http://localhost:3000/;",
     "test": "mocha --ui bdd ./tests/"
   },
   "repository": {
