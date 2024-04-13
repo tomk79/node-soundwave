@@ -29,6 +29,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// --------------------------------------
 	// マイクの音量を取得する
+	let mediaRecorder;
+	let audioChunks = [];
 	navigator.mediaDevices.getUserMedia({ audio: true })
 		.then((stream)=>{
 			const $volumeLevelDisplay = $('#volume-indicator__user-media');
@@ -38,6 +40,35 @@ document.addEventListener('DOMContentLoaded', function() {
 				$volumeLevelDisplay.text(`Level: ${volumePerL}`);
 				$volumeLevelDisplay.css({width: volumePerL});
 			});
-		});
 
+			// レコーダー
+			mediaRecorder = new MediaRecorder(stream);
+
+			mediaRecorder.addEventListener('dataavailable', event => {
+				audioChunks.push(event.data);
+			});
+
+			mediaRecorder.addEventListener('stop', () => {
+				const audioBlob = new Blob(audioChunks, { type: 'audio/mp3' });
+				const audioUrl = URL.createObjectURL(audioBlob);
+				const downloadLink = document.getElementById('btn-rec-download');
+				downloadLink.href = audioUrl;
+				downloadLink.download = 'recorded_audio.mp3';
+				downloadLink.textContent = 'ダウンロード';
+				$(downloadLink).trigger('click');
+			});
+
+		});
+	const $btn_start = $('#btn-rec-start');
+	const $btn_stop = $('#btn-rec-stop');
+	$btn_start.on('click', function(){
+		$btn_start.prop('disabled', true);
+		$btn_stop.prop('disabled', false);
+		mediaRecorder.start();
+	});
+	$btn_stop.on('click', function(){
+		$btn_start.prop('disabled', false);
+		$btn_stop.prop('disabled', true);
+		mediaRecorder.stop();
+	});
 });
