@@ -1,4 +1,4 @@
-(function(){
+document.addEventListener('DOMContentLoaded', function() {
 
 	// --------------------------------------
 	// 音声ファイルの音量を取得する
@@ -36,4 +36,4 @@
 			});
 		});
 
-})();
+});

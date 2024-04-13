@@ -2,6 +2,8 @@ export default class Soundwave {
 	#audioInput = null;
 	#audioInputType = null;
 	#options = {};
+
+	#audioContext = null;
 	#events = {
 		sound: [],
 	};
@@ -10,31 +12,34 @@ export default class Soundwave {
 		this.#audioInput = audioInput;
 		this.#options = options || {};
 		this.#audioInputType = (()=>{
-			if(audioInput instanceof HTMLElement){
+			if(this.#audioInput instanceof HTMLElement){
 				return 'element';
 			}
-			if(audioInput instanceof MediaStream){
+			if(this.#audioInput instanceof MediaStream){
 				return 'stream';
 			}
 			return null;
 		})();
 
-		const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+		this.#audioContext = new (window.AudioContext || window.webkitAudioContext)();
 		const sourceNode = (()=>{
 			if(this.#audioInputType == 'element'){
-				return audioContext.createMediaElementSource(audioInput);
+				this.#audioInput.addEventListener('play', ()=>{
+					this.resume();
+				});
+				return this.#audioContext.createMediaElementSource(this.#audioInput);
 			}
 			if(this.#audioInputType == 'stream'){
-				return audioContext.createMediaStreamSource(audioInput);
+				return this.#audioContext.createMediaStreamSource(this.#audioInput);
 			}
 		})();
 
-		const analyserNode = audioContext.createAnalyser();
+		const analyserNode = this.#audioContext.createAnalyser();
 		analyserNode.fftSize = 256;
 
 		sourceNode.connect(analyserNode);
 		if(this.#options.destination){		
-			analyserNode.connect(audioContext.destination);
+			analyserNode.connect(this.#audioContext.destination);
 		}
 
 		const dataArray = new Uint8Array(analyserNode.frequencyBinCount);
@@ -51,7 +56,6 @@ export default class Soundwave {
 
 		const updateVolumeLevel = () => {
 			const volumeLevel = getVolumeLevel();
-
 			this.#events['sound'].forEach((callback)=>{
 				callback(volumeLevel);
 			});
@@ -66,5 +70,9 @@ export default class Soundwave {
 
 	off (eventName) {
 		this.#events[eventName] = [];
+	}
+
+	resume() {
+		this.#audioContext.resume();
 	}
 }
