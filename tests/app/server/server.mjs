@@ -18,12 +18,10 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-app.use( '/common/soundwave/', express.static( path.resolve(__dirname, '../../../dist/') ) );
-
-app.use( express.static( path.resolve(__dirname, '../client/') ) );
+app.use( express.static( path.resolve(__dirname, '../../../docs/') ) );
 
 // 3000番ポートでLISTEN状態にする
 server.listen( 3000, function(){
-	console.log(path.resolve(__dirname, '../client/'));
 	console.log('server-standby');
+	console.log('open http://localhost:3000/demo/');
 } );
