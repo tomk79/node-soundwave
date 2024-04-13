@@ -3,23 +3,27 @@ document.addEventListener('DOMContentLoaded', function() {
 	// --------------------------------------
 	// 音声ファイルの音量を取得する
 	(() => {
-		const audioElement = new Audio();
+		const audioElement = document.getElementById('audio-sample');
 
-		const volumeLevelDisplay = $('#volume-indicator__audio-element');
-		const soundWave = new window.SoundWave(audioElement, {destination: true});
-
-		soundWave.on('sound', function(volume){
-			let volumePer = (volume * 100) + '%';
-			if(audioElement.ended){
-				volumePer = 0 + '%';
-			}
-			volumeLevelDisplay.text(`Level: ${volumePer}`);
-			volumeLevelDisplay.css({width: volumePer});
+		const $volumeLevelDisplayLeft = $('#volume-indicator__audio-element-left');
+		const $volumeLevelDisplayRight = $('#volume-indicator__audio-element-right');
+		const soundWave = new SoundWave(audioElement, {
+			destination: true,
+			channels: 2,
 		});
 
-		audioElement.src = "./sounds/sample.m4a";
-		audioElement.controls = true;
-		$('#audio-container').append(audioElement);
+		soundWave.on('sound', function(volume){
+			let volumePerL = (volume[0] * 100) + '%';
+			let volumePerR = (volume[1] * 100) + '%';
+			if(audioElement.ended){
+				volumePerL = 0 + '%';
+				volumePerR = 0 + '%';
+			}
+			$volumeLevelDisplayLeft.text(`Level: ${volumePerL}`);
+			$volumeLevelDisplayLeft.css({width: volumePerL});
+			$volumeLevelDisplayRight.text(`Level: ${volumePerR}`);
+			$volumeLevelDisplayRight.css({width: volumePerR});
+		});
 	})();
 
 
@@ -27,12 +31,12 @@ document.addEventListener('DOMContentLoaded', function() {
 	// マイクの音量を取得する
 	navigator.mediaDevices.getUserMedia({ audio: true })
 		.then((stream)=>{
-			const volumeLevelDisplay = $('#volume-indicator__user-media');
-			const soundWave = new window.SoundWave(stream, {destination: true});
+			const $volumeLevelDisplay = $('#volume-indicator__user-media');
+			const soundWave = new SoundWave(stream, {destination: true});
 			soundWave.on('sound', function(volume){
-				let volumePer = (volume * 100) + '%';
-				volumeLevelDisplay.text(`Level: ${volumePer}`);
-				volumeLevelDisplay.css({width: volumePer});
+				let volumePerL = (volume[0] * 100) + '%';
+				$volumeLevelDisplay.text(`Level: ${volumePerL}`);
+				$volumeLevelDisplay.css({width: volumePerL});
 			});
 		});
 

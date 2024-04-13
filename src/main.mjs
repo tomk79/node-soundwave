@@ -10,7 +10,10 @@ export default class Soundwave {
 
 	constructor (audioInput, options) {
 		this.#audioInput = audioInput;
-		this.#options = options || {};
+		options = options || {};
+		options.destination = !!options.destination;
+		options.channels = options.channels || 1;
+		this.#options = options;
 		this.#audioInputType = (()=>{
 			if(this.#audioInput instanceof HTMLElement){
 				return 'element';
@@ -34,17 +37,31 @@ export default class Soundwave {
 			}
 		})();
 
-		const analyserNode = this.#audioContext.createAnalyser();
-		analyserNode.fftSize = 256;
+	    const splitter = this.#audioContext.createChannelSplitter(this.#options.channels);
 
-		sourceNode.connect(analyserNode);
-		if(this.#options.destination){		
-			analyserNode.connect(this.#audioContext.destination);
+		const analyserNodes = [];
+		for(let i = 0; i < this.#options.channels; i ++){
+			analyserNodes[i] = this.#audioContext.createAnalyser();
 		}
 
-		const dataArray = new Uint8Array(analyserNode.frequencyBinCount);
+		sourceNode.connect(splitter);
+		for(let i = 0; i < this.#options.channels; i ++){
+			splitter.connect(analyserNodes[i], i, 0);
+			analyserNodes[i].fftSize = 256;
+		}
 
-		const getVolumeLevel = () => {
+		if(this.#options.destination){		
+			for(let i = 0; i < this.#options.channels; i ++){
+				analyserNodes[0].connect(this.#audioContext.destination);
+			}
+		}
+
+		const dataArrays = [];
+		for(let i = 0; i < this.#options.channels; i ++){
+			dataArrays[i] = new Uint8Array(analyserNodes[i].frequencyBinCount);
+		}
+
+		const getVolumeLevel = (analyserNode, dataArray) => {
 			analyserNode.getByteFrequencyData(dataArray);
 
 			let sum = dataArray.reduce((a, b) => a + b, 0);
@@ -55,9 +72,13 @@ export default class Soundwave {
 		};
 
 		const updateVolumeLevel = () => {
-			const volumeLevel = getVolumeLevel();
+			const volumeLevels = [];
+			for(let i = 0; i < this.#options.channels; i ++){
+				volumeLevels[i] = getVolumeLevel(analyserNodes[i], dataArrays[i]);
+			}
+
 			this.#events['sound'].forEach((callback)=>{
-				callback(volumeLevel);
+				callback(volumeLevels);
 			});
 			requestAnimationFrame(updateVolumeLevel);
 		};
