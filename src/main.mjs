@@ -47,8 +47,9 @@ export default class Soundwave {
 		for(let i = 0; i < this.#options.channels; i ++){
 			analyserNodes[i] = this.#audioContext.createAnalyser();
 			analyserNodes[i].fftSize = 256;
-			pannerNodes[i] = new StereoPannerNode(this.#audioContext, {pan: 1,});
+			pannerNodes[i] = this.#audioContext.createStereoPanner();
 			pannerNodes[i].connect(analyserNodes[i]);
+			pannerNodes[i].pan.value = (options.channels == 1 ? 0 : (i === 0 ? -1 : 1)); // TODO: ステレオ再生はされるが、pan設定は効いてない
 			splitter.connect(pannerNodes[i], i);
 			pannerNodes[i].connect(merger, 0, i);
 		}
