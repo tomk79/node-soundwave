@@ -1,7 +1,7 @@
 {
   "name": "@tomk79/soundwave",
   "version": "0.1.0",
-  "description": "",
+  "description": "Capture the volume of audio data.",
   "main": "src/main.mjs",
   "scripts": {
     "dev": "npm run development",

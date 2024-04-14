@@ -1,5 +1,7 @@
 # @tomk79/soundwave
 
+Capture the volume of audio data.
+
 ## Demo
 
 https://tomk79.github.io/node-soundwave/demo/
@@ -31,9 +33,9 @@ soundWave.on('sound', function(volume){
 
 ## Change log
 
-### @tomk79/soundwave@0.1.0 (リリース日未定)
+### @tomk79/soundwave v0.1.0 (2024-04-14)
 
-- initial release.
+- Initial release.
 
 
 ## License
