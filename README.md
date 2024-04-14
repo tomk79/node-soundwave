@@ -19,8 +19,8 @@ $ npm install --save @tomk79/soundwave
 <script>
 const soundWave = new SoundWave(
     document.getElementById("audio-element"), {
-        destination: true, // 音声を出力するか
-        channels: 2, // オーディオのチャンネル数
+        destination: true, // Whether to output audio
+        channels: 2, // Number of audio channels
     });
 soundWave.on('sound', function(volume){
     console.log(volume[0]);
