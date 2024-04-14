@@ -1,0 +1,5 @@
+/.npmignore
+/webpack.mix.js
+/mix-manifest.json
+/tests/
+/docs/
